@@ -1,0 +1,23 @@
+from collections import deque
+
+n,m = map(int, input().split())
+maze = []
+
+for i in range(n):
+    maze.append(list(map(int, input().strip())))
+
+d = [[1,0], [0,1], [-1, 0], [0,-1]]
+
+def bfs(row, col):
+    queue =deque()
+    queue.append((row, col))
+    while queue:
+        row1, col1= queue.popleft()
+        for drow, dcol in d:
+            if 0<= row1 + drow <n and 0<= col1 +dcol<m:
+                if maze[row1 +drow][col1+dcol] ==1:
+                    maze[row1 +drow][col1+dcol] = maze[row1][col1]+1
+                    queue.append((row1+drow, col1+dcol))
+                    
+bfs(0,0)
+print(maze[n-1][m-1])
